@@ -24,6 +24,14 @@ const config = {
   plugins: isOpenDevTools
     ? ['@tarojs/plugin-html', '@tarojs/plugin-vue-devtools', 'taro-plugin-pinia']
     : ['@tarojs/plugin-html', 'taro-plugin-pinia'],
+  sass: {
+    resource: [path.resolve(__dirname, '..', 'src/styles/custom_theme.scss')],
+    // 默认京东 APP 10.0主题 > @import "@nutui/nutui-taro/dist/styles/variables.scss";
+    // 京东科技主题 > @import "@nutui/nutui-taro/dist/styles/variables-jdt.scss";
+    // 京东B商城主题 > @import "@nutui/nutui-taro/dist/styles/variables-jdb.scss";
+    // 京东企业业务主题 > @import "@nutui/nutui-taro/dist/styles/variables-jddkh.scss";
+    data: `@import "@nutui/nutui-taro/dist/styles/variables-jdt.scss";`,
+  },
   defineConstants: {},
   copy: {
     patterns: [],

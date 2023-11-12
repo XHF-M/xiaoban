@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  pages: ['pages/index/index', 'pages/my/index'],
+  pages: ['pages/index/index', 'pages/my/index', 'pages/task/clockInTask/clockInTask'],
   window: {
     backgroundColor: '#fff',
     backgroundTextStyle: 'light',
@@ -9,8 +9,8 @@ export default defineAppConfig({
   },
   tabBar: {
     custom: true,
-    color: '#000000',
-    selectedColor: '#DC143C',
+    color: '#999999',
+    selectedColor: '#333333',
     backgroundColor: '#ffffff',
     list: [
       {

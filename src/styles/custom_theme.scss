@@ -1,0 +1,28 @@
+:root,
+page {
+  // 主色调
+  $primary-color: #478ef2;
+  $primary-color-end: #496af2;
+  --nut-primary-color: #478ef2;
+  --nut-primary-color-end: #496af2;
+  --nut-button-primary-color: #478ef2;
+
+  --nut-address-region-tab-line: linear-gradient(
+    90deg,
+    primaryColor 0%,
+    rgba(primaryColor, 0.15) 100%
+  );
+  --nut-tabs-horizontal-tab-line-color: linear-gradient(
+    180deg,
+    primaryColor 0%,
+    rgba(primaryColor, 0.15) 100%
+  );
+  --nut-tabs-vertical-tab-line-color: linear-gradient(
+    180deg,
+    primaryColor 0%,
+    rgba(primaryColor, 0.15) 100%
+  );
+}
+
+$primary-color: #478ef2;
+$primary-color-end: #496af2;

@@ -23,8 +23,8 @@ import { useTabs } from '@/stores'
 const tabs = useTabs()
 const selected = computed(() => tabs.getSelected)
 
-const color = '#000000'
-const selectedColor = '#1296db'
+const color = '#999999'
+const selectedColor = '#333333'
 const list = [
   {
     pagePath: '/pages/index/index',
@@ -68,19 +68,19 @@ function setSelected(index) {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 120rpx;
   background: white;
   display: flex;
   padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0rpx -2rpx 10rpx 0rpx rgba(0, 0, 0, 0.04);
 }
 
 .tab-bar-border {
-  background-color: rgba(0, 0, 0, 0.33);
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
-  height: 1px;
+  // height: 2rpx;
   transform: scaleY(0.5);
 }
 
@@ -94,11 +94,16 @@ function setSelected(index) {
 }
 
 .tab-bar-item cover-image {
-  width: 28px;
-  height: 28px;
+  width: 48rpx;
+  height: 48rpx;
+  margin-bottom: 4rpx;
 }
 
 .tab-bar-item cover-view {
-  font-size: 12px;
+  font-size: 22rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #999999;
+  line-height: 28rpx;
 }
 </style>

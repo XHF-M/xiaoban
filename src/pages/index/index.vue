@@ -1,58 +1,65 @@
 <template>
-  <!-- <view>
-    <nut-button @click="goRequest">跳转接口测试页面</nut-button>
-    <nut-button @click="goCss">跳转样式测试页面</nut-button>
-    <nut-button @click="goPinia">跳转Pinia测试页面</nut-button>
-    <nut-button @click="goNutUi">跳转NutUi测试页面</nut-button>
-  </view> -->
-
-  <view>
-    <view v-if="hasGrades" class="grades-info">
-      <image class="image" :src="grades.avatar" />
-      <view class="info">
-        <text>{{ grades.name }}</text>
-        <text>创建者：{{ grades.creator }}</text>
-      </view>
-    </view>
-    <view v-else class="grades-list">
-      <view class="grades-item" v-for="(item, index) in createGradesMap" :key="index">
-        <text>{{ item.text }}</text>
-      </view>
-    </view>
-
+  <div class="container">
     <view>
-      <view v-if="hasGrades" class="people-info">
-        <view class="people-item" v-for="(item, index) in peopleProp" :key="index">
-          <text>{{ item.label }}</text>
-          <text>{{ item.value }}</text>
+      <view v-if="hasGrades" class="grades-info">
+        <image class="image" :src="grades.avatar" />
+        <view class="info">
+          <text>{{ grades.name }}</text>
+          <text>创建者：{{ grades.creator }}</text>
         </view>
-        <view class="people-item">邀请老师/家长</view>
+      </view>
+      <view v-else class="grades-list">
+        <view class="grades-item" v-for="(item, index) in createGradesMap" :key="index">
+          <text>{{ item.text }}</text>
+        </view>
+      </view>
+
+      <view>
+        <view v-if="hasGrades" class="people-info">
+          <view class="people-item" v-for="(item, index) in peopleProp" :key="index">
+            <text class="title">{{ item.label }}</text>
+            <text class="people-num">{{ item.value }}</text>
+          </view>
+          <view class="people-item">
+            <image class="icon" src="../../assets/svg/add_user.svg" mode="aspectFit"></image>
+            <text class="title mt6">邀请老师/家长</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="application-list">
+        <view
+          class="application-item"
+          v-for="(item, index) in applicationList"
+          :key="index"
+          @click="handleClick(item)"
+        >
+          <image class="application-image" :src="item.icon" mode="aspectFit"></image>
+          <text>{{ item.label }}</text>
+        </view>
       </view>
     </view>
 
-    <view class="application-list">
-      <view
-        class="application-item"
-        v-for="(item, index) in applicationList"
-        :key="index"
-        @click="handleClick(item)"
-      >
-        <image class="application-image" :src="item.icon" mode="aspectFit"></image>
-        <text>{{ item.label }}</text>
-      </view>
+    <view class="swiper-container">
+      <nut-swiper :pagination-visible="true" pagination-color="#478ef2" auto-play="3000">
+        <nut-swiper-item v-for="(image, index) in swiperImages" :key="index">
+          <img :src="image" alt="" />
+        </nut-swiper-item>
+      </nut-swiper>
     </view>
-  </view>
 
-  <nut-dialog
-    no-cancel-btn
-    title="温馨提示"
-    :content="dialogContent"
-    v-model:visible="visible"
-    @ok="onOk"
-  />
+    <nut-dialog
+      no-cancel-btn
+      title="温馨提示"
+      :content="dialogContent"
+      v-model:visible="visible"
+      @ok="onOk"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
+// import Taro from '@tarojs/taro'
 import Taro from '@tarojs/taro'
 import { ref, onMounted, computed } from 'vue'
 
@@ -98,6 +105,7 @@ const applicationList = [
     icon: require('../../assets/svg/clock.svg'),
     label: '打卡',
     isOpen: true,
+    toPageUrl: '/pages/task/clockInTask/clockInTask',
   },
   {
     icon: require('../../assets/svg/notifications.svg'),
@@ -119,6 +127,13 @@ const applicationList = [
     label: '红花榜',
     isOpen: false,
   },
+]
+
+const swiperImages = [
+  'https://storage.360buyimg.com/jdc-article/NutUItaro34.jpg',
+  'https://storage.360buyimg.com/jdc-article/NutUItaro2.jpg',
+  'https://storage.360buyimg.com/jdc-article/welcomenutui.jpg',
+  'https://storage.360buyimg.com/jdc-article/fristfabu.jpg',
 ]
 
 const visible = ref(false)
@@ -143,50 +158,65 @@ const handleClick = (item) => {
   if (!item.isOpen) {
     dialogContent.value = `${item.label}功能暂未开通，敬请期待！`
     visible.value = true
+  } else {
+    Taro.navigateTo({
+      url: item.toPageUrl,
+    })
   }
 
   return
 }
 
 onMounted(() => {
-  Taro.login({
-    success: function (res) {
-      if (res.code) {
-        console.log('res', res)
-        //发起网络请求
-        // Taro.request({
-        //   url: 'https://test.com/onLogin',
-        //   data: {
-        //     code: res.code,
-        //   },
-        // })
-      } else {
-        console.log('登录失败！' + res.errMsg)
-      }
-    },
-  })
+  // Taro.login({
+  //   success: function (res) {
+  //     if (res.code) {
+  //       console.log('res', res)
+  //       //发起网络请求
+  //       // Taro.request({
+  //       //   url: 'https://test.com/onLogin',
+  //       //   data: {
+  //       //     code: res.code,
+  //       //   },
+  //       // })
+  //     } else {
+  //       console.log('登录失败！' + res.errMsg)
+  //     }
+  //   },
+  // })
 })
 </script>
 
 <style lang="scss">
+.container {
+  height: 100vh;
+  background: #f2f6fa;
+}
+
 .grades-info {
   display: flex;
   flex-direction: row;
-  padding: 16px 32px;
+  padding: 32rpx 64rpx;
+  background-color: #fff;
+  font-size: 36rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #333333;
+  line-height: 44rpx;
 
   .image {
-    width: 80px;
-    height: 80px;
+    width: 160rpx;
+    height: 160rpx;
   }
 
   .info {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 16px;
+    margin-left: 32rpx;
 
     & text:first-child {
-      margin-bottom: 8px;
+      margin-bottom: 16rpx;
     }
   }
 }
@@ -194,10 +224,10 @@ onMounted(() => {
 .people-info {
   display: flex;
   justify-content: space-evenly;
-  margin: 16px;
-  border-radius: 8px;
-  background-color: #1296db;
-  padding: 8px 0;
+  margin: 32rpx;
+  border-radius: 16rpx;
+  background-color: #478ef2;
+  padding: 16rpx 0;
   color: #ffff;
 
   .people-item {
@@ -206,17 +236,32 @@ onMounted(() => {
     align-items: center;
     position: relative;
 
+    .title {
+      font-size: 28rpx;
+      color: #f9f8f8;
+    }
+
+    .people-num {
+      margin-top: 12rpx;
+      font-size: 32rpx;
+    }
+
     &:not(:last-child)::before {
       content: '';
-      width: 2px;
-      height: 20px;
-      background: #eee;
+      width: 4rpx;
+      height: 60rpx;
+      background: #f9f8f8;
       position: absolute;
-      top: 10px;
-      left: 53px;
+      top: 10rpx;
+      left: 106rpx;
       margin: auto;
     }
   }
+}
+
+.icon {
+  width: 36rpx;
+  height: 36rpx;
 }
 
 .grades-list {
@@ -226,34 +271,53 @@ onMounted(() => {
 
 .grades-item {
   flex: 1;
-  margin: 16px;
-  padding: 32px 16px;
-  border-radius: 8px;
+  margin: 32rpx;
+  padding: 64rpx 32rpx;
+  border-radius: 16rpx;
   text-align: center;
   color: #ffff;
-  background-color: #1296db;
+  background-color: #478ef2;
 }
 
 .application-list {
   display: flex;
   flex-wrap: wrap;
-  margin: 16px;
+  margin: 32rpx;
+  background-color: #fff;
+  border-radius: 24rpx;
+  padding: 24rpx;
 
   .application-item {
-    height: 60px;
+    width: 20%;
+    height: 120rpx;
     text-align: center;
-    font-size: 12px;
+    font-size: 24rpx;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-right: 8px;
   }
 
   .application-image {
-    width: 45px;
-    height: 45px;
-    margin-bottom: 8px;
+    width: 90rpx;
+    height: 90rpx;
+    margin-bottom: 16rpx;
+  }
+}
+.swiper-container {
+  padding: 0 32rpx;
+
+  .nut-swiper {
+    border-radius: 24rpx;
+  }
+
+  .nut-swiper-item {
+    width: 100%;
+    line-height: 150rpx;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>

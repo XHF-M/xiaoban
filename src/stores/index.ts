@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 export { useCounter } from './count'
 export { useSystem } from './system'
 export { useTabs } from './tabs'
+export { useLogin } from './login'
 export const store = createPinia()
 
 export function setupStore(app: App) {

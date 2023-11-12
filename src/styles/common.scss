@@ -8,3 +8,11 @@ page {
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+.mt6 {
+  margin-top: 12rpx;
+}
+
+.mr16 {
+  margin-right: 16rpx;
+}
